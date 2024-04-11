@@ -1,5 +1,6 @@
 package com.projectsvadim.vadimbot.Controller;
 
+
 import com.projectsvadim.vadimbot.telegram.Bot;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
@@ -14,12 +15,10 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class MainController {
     final Bot bot;
-
     @Autowired
     public MainController(Bot bot) {
         this.bot = bot;
     }
-
     @PostMapping("/")
     public BotApiMethod<?> listener(@RequestBody Update update) {
         return bot.onWebhookUpdateReceived(update);
