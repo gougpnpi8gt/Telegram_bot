@@ -1,0 +1,11 @@
+package com.projectsvadim.vadimbot.enity.timetable;
+
+public enum WeekDay {
+    MONDAY,
+    TUESDAY,
+    WEDNESDAY,
+    THURSDAY,
+    FRIDAY,
+    SATURDAY,
+    SUNDAY
+}
