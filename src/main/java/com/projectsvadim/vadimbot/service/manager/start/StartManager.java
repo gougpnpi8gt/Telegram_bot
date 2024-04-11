@@ -29,8 +29,9 @@ public class StartManager extends AbstractManager {
         this.methodFactory = methodFactory;
         this.keyboardFactory = keyboardFactory;
     }
+
     @Override
-    public SendMessage answerCommand(Message message, Bot bot){
+    public SendMessage answerCommand(Message message, Bot bot) {
         return methodFactory.getSendMessage(
                 message.getChatId(),
                 """

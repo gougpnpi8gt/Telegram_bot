@@ -1,6 +1,5 @@
 package com.projectsvadim.vadimbot.service.handler;
 
-import com.projectsvadim.vadimbot.service.data.CallBackData;
 import com.projectsvadim.vadimbot.service.manager.auth.AuthManager;
 import com.projectsvadim.vadimbot.service.manager.feedback.FeedbackManager;
 import com.projectsvadim.vadimbot.service.manager.help.HelpManager;
@@ -30,17 +29,16 @@ public class CallBackQueryHandler {
     final TaskManager taskManager;
     final ProgressControlManager progressControlManager;
     final AuthManager authManager;
-    final OlegManager olegManager;
     final ProfileManager profileManager;
     final SearchManager searchManager;
     final StartManager startManager;
+
     @Autowired
     public CallBackQueryHandler(HelpManager helpManager,
                                 FeedbackManager feedbackManager, TimetableManager timeTableManager,
                                 TaskManager taskManager,
                                 ProgressControlManager progressControlManager,
                                 AuthManager authManager,
-                                OlegManager olegManager,
                                 ProfileManager profileManager,
                                 SearchManager searchManager, StartManager startManager) {
         this.helpManager = helpManager;
@@ -49,7 +47,6 @@ public class CallBackQueryHandler {
         this.taskManager = taskManager;
         this.progressControlManager = progressControlManager;
         this.authManager = authManager;
-        this.olegManager = olegManager;
         this.profileManager = profileManager;
         this.searchManager = searchManager;
         this.startManager = startManager;
@@ -70,9 +67,6 @@ public class CallBackQueryHandler {
             }
             case AUTH -> {
                 return authManager.answerCallbackQuery(callBackQuery, bot);
-            }
-            case OLIK -> {
-                return olegManager.answerCallbackQuery(callBackQuery, bot);
             }
             case PROFILE -> {
                 return profileManager.answerCallbackQuery(callBackQuery, bot);

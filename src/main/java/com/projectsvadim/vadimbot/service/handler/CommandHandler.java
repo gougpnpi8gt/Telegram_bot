@@ -3,7 +3,6 @@ package com.projectsvadim.vadimbot.service.handler;
 import com.projectsvadim.vadimbot.service.factory.KeyboardFactory;
 import com.projectsvadim.vadimbot.service.manager.feedback.FeedbackManager;
 import com.projectsvadim.vadimbot.service.manager.help.HelpManager;
-import com.projectsvadim.vadimbot.service.manager.olik.OlegManager;
 import com.projectsvadim.vadimbot.service.manager.profile.ProfileManager;
 import com.projectsvadim.vadimbot.service.manager.progresControl_.ProgressControlManager;
 import com.projectsvadim.vadimbot.service.manager.search.SearchManager;
@@ -31,9 +30,9 @@ public class CommandHandler {
     final KeyboardFactory keyboardFactory;
     final TaskManager taskManager;
     final ProgressControlManager progressControlManager;
-    final OlegManager olegManager;
     final ProfileManager profileManager;
     final SearchManager searchManager;
+
     @Autowired
     public CommandHandler(StartManager startManager,
                           KeyboardFactory keyboardFactory,
@@ -42,7 +41,6 @@ public class CommandHandler {
                           TimetableManager timeTableManager,
                           TaskManager taskManager,
                           ProgressControlManager progressControlManager,
-                          OlegManager olegManager,
                           ProfileManager profileManager,
                           SearchManager searchManager
     ) {
@@ -53,14 +51,14 @@ public class CommandHandler {
         this.timeTableManager = timeTableManager;
         this.taskManager = taskManager;
         this.progressControlManager = progressControlManager;
-        this.olegManager = olegManager;
         this.profileManager = profileManager;
         this.searchManager = searchManager;
     }
+
     public BotApiMethod<?> answer(Message message, Bot bot) {
         String command = message.getText();
         switch (command) {
-            case START-> {
+            case START -> {
                 return startManager.answerCommand(message, bot);
             }
             case FEEDBACK_COMMAND -> {
@@ -69,7 +67,7 @@ public class CommandHandler {
             case HELP_COMMAND -> {
                 return helpManager.answerCommand(message, bot);
             }
-            case TIMETABLE-> {
+            case TIMETABLE -> {
                 return timeTableManager.answerCommand(message, bot);
             }
             case TASK -> {
@@ -77,9 +75,6 @@ public class CommandHandler {
             }
             case PROGRESS -> {
                 return progressControlManager.answerCommand(message, bot);
-            }
-            case OLIK -> {
-                return olegManager.answerCommand(message, bot);
             }
             case PROFILE -> {
                 return profileManager.answerCommand(message, bot);
@@ -92,6 +87,7 @@ public class CommandHandler {
             }
         }
     }
+
     private BotApiMethod<?> defaultAnswer(Message message) {
         return SendMessage.builder().text("""
                         Неподдерживаемая команда

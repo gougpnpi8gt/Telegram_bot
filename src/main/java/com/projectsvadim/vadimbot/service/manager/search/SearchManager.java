@@ -20,17 +20,19 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 import java.util.List;
 
-import static com.projectsvadim.vadimbot.service.data.CallBackData.SEARCH_CANCEL;
+import static com.projectsvadim.vadimbot.service.data.CallBackData.*;
+
 @Slf4j
 @Component
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class SearchManager extends AbstractManager  {
+public class SearchManager extends AbstractManager {
 
     final AnswerMethodFactory methodFactory;
 
     final UserRepo userRepo;
 
     final KeyboardFactory keyboardFactory;
+
     @Autowired
     public SearchManager(AnswerMethodFactory methodFactory,
                          UserRepo userRepo,
@@ -51,13 +53,13 @@ public class SearchManager extends AbstractManager  {
         try {
             bot.execute(methodFactory.getDeleteMessage(
                     message.getChatId(),
-                    message.getMessageId() -1
+                    message.getMessageId() - 1
             ));
         } catch (TelegramApiException e) {
             log.error(e.getMessage());
         }
         var user = userRepo.findUserByChatId(message.getChatId());
-        switch (user.getAction()){
+        switch (user.getAction()) {
             case SENDING_TOKEN -> {
                 return checkToken(message, user);
             }
@@ -69,7 +71,7 @@ public class SearchManager extends AbstractManager  {
     @Override
     public BotApiMethod<?> answerCallbackQuery(CallbackQuery callbackQuery, Bot bot) {
         String callbackData = callbackQuery.getData();
-        switch (callbackData){
+        switch (callbackData) {
             case SEARCH_CANCEL -> {
                 try {
                     return cancel(callbackQuery, bot);
@@ -80,17 +82,18 @@ public class SearchManager extends AbstractManager  {
         }
         return null;
     }
+
     private BotApiMethod<?> checkToken(Message message,
                                        User user) {
         String token = message.getText();
         var userTwo = userRepo.findUserByToken(token);
-        if (userTwo == null){
+        if (userTwo == null) {
             return methodFactory.getSendMessage(
                     message.getChatId(),
                     """
-                           ✖️ По данному токену не найдено ни одного пользователя
-                           \n\n Повторите попытку
-                            """,
+                            ✖️ По данному токену не найдено ни одного пользователя
+                            \n\n Повторите попытку
+                             """,
                     keyboardFactory.getInlineKeyboard(
                             List.of("❌ Отмена операции"),
                             List.of(1),
@@ -122,13 +125,13 @@ public class SearchManager extends AbstractManager  {
                         List.of(SEARCH_CANCEL)
                 )
         );
-        }
+    }
 
-    private boolean validation(User userOne, User userTwo){
+    private boolean validation(User userOne, User userTwo) {
         return userOne.getRole() != userTwo.getRole();
     }
 
-    private BotApiMethod<?> askToken(Message message){
+    private BotApiMethod<?> askToken(Message message) {
         Long chatId = message.getChatId();
         var user = userRepo.findUserByChatId(chatId);
         user.setAction(Action.SENDING_TOKEN);
@@ -143,6 +146,7 @@ public class SearchManager extends AbstractManager  {
                 )
         );
     }
+
     private BotApiMethod<?> cancel(CallbackQuery callbackQuery, Bot bot) throws TelegramApiException {
         Long chatId = callbackQuery.getMessage().getChatId();
         var user = userRepo.findUserByChatId(chatId);
@@ -154,9 +158,8 @@ public class SearchManager extends AbstractManager  {
         ));
 
         return methodFactory.getDeleteMessage(
-             chatId,
-             callbackQuery.getMessage().getMessageId()
+                chatId,
+                callbackQuery.getMessage().getMessageId()
         );
     }
-
 }

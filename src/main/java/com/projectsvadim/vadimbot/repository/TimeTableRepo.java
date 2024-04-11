@@ -11,7 +11,10 @@ import java.util.UUID;
 
 @Repository
 public interface TimeTableRepo extends JpaRepository<TimeTable, UUID> {
-    List<TimeTable> findAllByUsersContainingAndWeekDayAndInCreation(User user, WeekDay weekDay, Boolean isInCreation);
+    List<TimeTable> findAllByUsersContainingAndWeekDayAndInCreation(User user,
+                                                                    WeekDay weekDay,
+                                                                    Boolean isInCreation);
+
     TimeTable findTimeTableById(UUID id);
 
 }

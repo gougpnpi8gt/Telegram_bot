@@ -8,11 +8,13 @@ import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramWebhookBot;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.objects.Update;
+
 @Component
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Bot extends TelegramWebhookBot {
     final UpdateDispatcher updateDispatcher;
     final TelegramProperties telegramProperties;
+
     @Autowired
     public Bot(TelegramProperties telegramProperties,
                UpdateDispatcher updateDispatcher) {

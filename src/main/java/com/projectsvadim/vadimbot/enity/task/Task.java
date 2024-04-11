@@ -3,7 +3,6 @@ package com.projectsvadim.vadimbot.enity.task;
 import com.projectsvadim.vadimbot.enity.User.Role;
 import com.projectsvadim.vadimbot.enity.User.User;
 import jakarta.persistence.*;
-import jdk.dynalink.linker.LinkerServices;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -72,7 +71,6 @@ public class Task {
         throw new NoSuchElementException("No teacher for task " + id);
     }
 
-
     public void changeUser(User student) {
         if (Role.TEACHER.equals(student.getRole())) {
             throw new IllegalArgumentException("Asked student, teacher given");
@@ -80,5 +78,4 @@ public class Task {
         users.removeIf(user -> Role.STUDENT.equals(user.getRole()));
         users.add(student);
     }
-
 }

@@ -36,5 +36,4 @@ public class UserDetails {
 
     @Column(name = "now_updating_timetable")
     String timetableId;
-
 }

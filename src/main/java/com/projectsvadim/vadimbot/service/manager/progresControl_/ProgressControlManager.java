@@ -12,13 +12,11 @@ import com.projectsvadim.vadimbot.telegram.Bot;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.expression.spel.support.BooleanTypedValue;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,11 +24,12 @@ import static com.projectsvadim.vadimbot.service.data.CallBackData.*;
 
 @Component
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class ProgressControlManager  extends AbstractManager {
+public class ProgressControlManager extends AbstractManager {
     final AnswerMethodFactory methodFactory;
     final UserRepo userRepo;
     final TaskRepo taskRepo;
     final KeyboardFactory keyboardFactory;
+
     @Autowired
     public ProgressControlManager(AnswerMethodFactory methodFactory, UserRepo userRepo, TaskRepo taskRepo,
                                   KeyboardFactory keyboardFactory) {
@@ -130,6 +129,7 @@ public class ProgressControlManager  extends AbstractManager {
                 )
         );
     }
+
     private BotApiMethod<?> stat(CallbackQuery callbackQuery) {
         var teacher = userRepo.findUserByChatId(callbackQuery.getMessage().getChatId());
         List<User> students = teacher.getUsers();
@@ -137,7 +137,7 @@ public class ProgressControlManager  extends AbstractManager {
         List<String> data = new ArrayList<>();
         List<Integer> cfg = new ArrayList<>();
         int index = 0;
-        for (User student: students) {
+        for (User student : students) {
             text.add(student.getDetails().getFirstName());
             data.add(PROGRESS_USER + student.getToken());
             if (index == 4) {

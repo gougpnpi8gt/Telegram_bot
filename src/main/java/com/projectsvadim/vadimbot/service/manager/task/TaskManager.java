@@ -27,9 +27,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import static com.projectsvadim.vadimbot.enity.User.Action.SENDING_MEDIA;
-import static com.projectsvadim.vadimbot.enity.User.Action.SENDING_TASK;
 import static com.projectsvadim.vadimbot.service.data.CallBackData.*;
+
 @Slf4j
 @Component
 @FieldDefaults(level = AccessLevel.PRIVATE)

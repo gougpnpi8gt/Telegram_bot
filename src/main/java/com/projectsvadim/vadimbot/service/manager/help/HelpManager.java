@@ -21,12 +21,14 @@ import static com.projectsvadim.vadimbot.service.data.CallBackData.START;
 public class HelpManager extends AbstractManager {
     final AnswerMethodFactory methodFactory;
     final KeyboardFactory keyboardFactory;
+
     @Autowired
     public HelpManager(AnswerMethodFactory methodFactory,
                        KeyboardFactory keyboardFactory) {
         this.methodFactory = methodFactory;
         this.keyboardFactory = keyboardFactory;
     }
+
     @Override
     public BotApiMethod<?> answerCommand(Message message, Bot bot) {
         return methodFactory.getSendMessage(

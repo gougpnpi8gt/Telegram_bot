@@ -21,22 +21,24 @@ import static com.projectsvadim.vadimbot.service.data.CallBackData.*;
 public class FeedbackManager extends AbstractManager {
     final AnswerMethodFactory methodFactory;
     final KeyboardFactory keyboardFactory;
+
     @Autowired
     public FeedbackManager(AnswerMethodFactory answerMethodFactory,
                            KeyboardFactory keyboardFactory) {
         this.methodFactory = answerMethodFactory;
         this.keyboardFactory = keyboardFactory;
     }
+
     @Override
     public BotApiMethod<?> answerCommand(Message message, Bot bot) {
         return methodFactory.getSendMessage(
                 message.getChatId(),
                 """
-                     📍 Обратная связь:
-                    почта: 🖕 fakEveryone@mail.ru;
-                    телефон: ☎️ 112
-                    телега: 🐴  https://sedla.ru/guzhevoj-transport.html
-                       """,
+                         📍 Обратная связь:
+                        почта: 🖕 fakEveryone@mail.ru;
+                        телефон: ☎️ 112
+                        телега: 🐴  https://sedla.ru/guzhevoj-transport.html
+                           """,
                 keyboardFactory.getInlineKeyboard(
                         List.of("Главное меню"),
                         List.of(1),
@@ -49,16 +51,17 @@ public class FeedbackManager extends AbstractManager {
     public BotApiMethod<?> answerMessage(Message message, Bot bot) {
         return null;
     }
+
     @Override
     public BotApiMethod<?> answerCallbackQuery(CallbackQuery callbackQuery, Bot bot) {
         return methodFactory.getEditMessageText(
                 callbackQuery,
                 """
-                    📍 Обратная связь:
-                    почта: 🖕 fakEveryone@mail.ru;
-                    телефон: ☎️ 112
-                    телега: 🐴  https://sedla.ru/guzhevoj-transport.html
-                    """,
+                        📍 Обратная связь:
+                        почта: 🖕 fakEveryone@mail.ru;
+                        телефон: ☎️ 112
+                        телега: 🐴  https://sedla.ru/guzhevoj-transport.html
+                        """,
                 keyboardFactory.getInlineKeyboard(
                         List.of("\uD83D\uDD19 Назад"),
                         List.of(1),

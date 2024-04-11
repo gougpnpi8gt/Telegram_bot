@@ -36,7 +36,6 @@ public class ProfileManager extends AbstractManager {
 
     @Override
     public BotApiMethod<?> answerCommand(Message message, Bot bot) {
-
         return showProfile(message);
     }
 
@@ -97,15 +96,12 @@ public class ProfileManager extends AbstractManager {
         return text.toString();
     }
 
-
     private BotApiMethod<?> refreshToken(CallbackQuery callbackQuery) {
         var user = userRepo.findUserByChatId(callbackQuery.getMessage().getChatId());
         user.refreshToken();
         userRepo.save(user);
         return showProfile(callbackQuery);
     }
-
-
 }
 
 

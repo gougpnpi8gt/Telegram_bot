@@ -12,23 +12,14 @@ import java.util.List;
 
 @Component
 public class KeyboardFactory {
-    /*
-    Два типа клавиатур
-    1. Клавиатура появляется под сообщением бота, нажимая
-    на ее кнопки нам приходит обновление callbackQuery
-    2. Подсказывает пользователя сообщения
-     */
     public InlineKeyboardMarkup getInlineKeyboard(
-            /*
-            Каждый индекс списка config будет
-            отображать кол-во кнопок в ряду
-             */
+
             List<String> text,
             List<Integer> configuration,
-            List<String> data){
+            List<String> data) {
         List<List<InlineKeyboardButton>> keyboard = new ArrayList<>();
-        int index = 0;//нужна для других двух списков
-        for (Integer rowNumber : configuration){
+        int index = 0;
+        for (Integer rowNumber : configuration) {
             List<InlineKeyboardButton> row = new ArrayList<>();
             for (int i = 0; i < rowNumber; i++) {
                 InlineKeyboardButton button = new InlineKeyboardButton();
@@ -44,13 +35,14 @@ public class KeyboardFactory {
         keyboardMarkup.setKeyboard(keyboard);
         return keyboardMarkup;
     }
+
     public ReplyKeyboardMarkup getReplyKeyboard(
             List<String> text,
             List<Integer> configuration
-    ){
+    ) {
         List<KeyboardRow> keyboard = new ArrayList<>();
-        int index = 0;//нужна для других двух списков
-        for (Integer rowNumber : configuration){
+        int index = 0;
+        for (Integer rowNumber : configuration) {
             KeyboardRow row = new KeyboardRow();
             for (int i = 0; i < rowNumber; i++) {
                 KeyboardButton button = new KeyboardButton();

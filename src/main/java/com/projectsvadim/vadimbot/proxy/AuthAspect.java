@@ -16,37 +16,42 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.Update;
+
 @Aspect
 @Component
-@Order(100)// чтобы исправить ошибку, в случае если пользователь который совершает какое-то действие еще нет в базе
+@Order(100)
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class AuthAspect {
+
     final UserRepo userRepo;
     final AuthManager authManager;
+
     @Autowired
     public AuthAspect(UserRepo userRepo, AuthManager authManager) {
         this.userRepo = userRepo;
         this.authManager = authManager;
     }
+
     @Pointcut("execution(* com.projectsvadim.vadimbot.service.UpdateDispatcher.distribute(..))")
-    public void distributeMethodPointCut(){
+    public void distributeMethodPointCut() {
     }
+
     @Around("distributeMethodPointCut()")
     public Object authMethodAdvice(ProceedingJoinPoint joinPoint)
-            throws Throwable{
+            throws Throwable {
         Update update = (Update) joinPoint.getArgs()[0];
         User user;
         if (update.hasMessage()) {
             user = userRepo.findById(update.getMessage().getChatId()).orElseThrow();
-        } else if (update.hasCallbackQuery()){
+        } else if (update.hasCallbackQuery()) {
             user = userRepo.findById(update.getCallbackQuery().getMessage().getChatId()).orElseThrow();
         } else {
             return joinPoint.proceed();
         }
-        if (user.getRole() != Role.EMPTY){
+        if (user.getRole() != Role.EMPTY) {
             return joinPoint.proceed();
         }
-        if (user.getAction() == Action.AUTH){
+        if (user.getAction() == Action.AUTH) {
             return joinPoint.proceed();
         }
         return authManager.answerMessage(update.getMessage(),

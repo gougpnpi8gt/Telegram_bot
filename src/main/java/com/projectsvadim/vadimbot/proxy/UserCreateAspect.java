@@ -18,6 +18,7 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.User;
 
 import java.time.LocalDateTime;
+
 @Aspect
 @Order(10)
 @Component
@@ -25,6 +26,7 @@ import java.time.LocalDateTime;
 public class UserCreateAspect {
     final UserRepo userRepo;
     final DetailsRepo detailsRepo;
+
     @Autowired
     public UserCreateAspect(UserRepo userRepo, DetailsRepo detailsRepo) {
         this.userRepo = userRepo;
@@ -32,24 +34,24 @@ public class UserCreateAspect {
     }
 
     @Pointcut("execution(* com.projectsvadim.vadimbot.service.UpdateDispatcher.distribute(..))")
-    public void distributeMethodPointCut(){
+    public void distributeMethodPointCut() {
 
     }
 
     @Around("distributeMethodPointCut()")
-    public Object distributeMethodAdvice(ProceedingJoinPoint joinPoint) throws Throwable{
+    public Object distributeMethodAdvice(ProceedingJoinPoint joinPoint) throws Throwable {
         Update update = (Update) joinPoint.getArgs()[0];
         User telegramUser;
         if (update.hasMessage()) {
             telegramUser = update.getMessage().getFrom();
             // getFrom - из сообщения получить пользователя
-        } else if (update.hasCallbackQuery()){
+        } else if (update.hasCallbackQuery()) {
             telegramUser = update.getCallbackQuery().getFrom();
         } else {
             return joinPoint.proceed();
             // мы позволяем методу distribute выполниться
         }
-        if (userRepo.existsById(telegramUser.getId())){
+        if (userRepo.existsById(telegramUser.getId())) {
             return joinPoint.proceed();
         }
         UserDetails details = UserDetails.builder()
@@ -61,11 +63,11 @@ public class UserCreateAspect {
         detailsRepo.save(details);
         com.projectsvadim.vadimbot.enity.User.User newUser =
                 com.projectsvadim.vadimbot.enity.User.User.builder()
-                .chatId(telegramUser.getId())
-                .action(Action.FREE)
-                .role(Role.EMPTY)
-                .details(details)
-                .build();
+                        .chatId(telegramUser.getId())
+                        .action(Action.FREE)
+                        .role(Role.EMPTY)
+                        .details(details)
+                        .build();
         userRepo.save(newUser);
         return joinPoint.proceed();
     }

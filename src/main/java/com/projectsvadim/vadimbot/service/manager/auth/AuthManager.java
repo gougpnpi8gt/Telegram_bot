@@ -21,6 +21,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import static com.projectsvadim.vadimbot.service.data.CallBackData.*;
+
 @Slf4j
 @Service
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -28,6 +29,7 @@ public class AuthManager extends AbstractManager {
     final UserRepo userRepo;
     final AnswerMethodFactory methodFactory;
     final KeyboardFactory keyboardFactory;
+
     @Autowired
     public AuthManager(UserRepo userRepo,
                        AnswerMethodFactory methodFactory,

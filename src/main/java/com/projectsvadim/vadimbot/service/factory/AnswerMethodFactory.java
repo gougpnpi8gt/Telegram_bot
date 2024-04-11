@@ -22,7 +22,7 @@ public class AnswerMethodFactory {
             Long chatId,
             String text,
             ReplyKeyboard keyboard
-    ){
+    ) {
         return SendMessage.builder()
                 .chatId(chatId)
                 .text(text)
@@ -30,11 +30,12 @@ public class AnswerMethodFactory {
                 .disableWebPagePreview(true)
                 .build();
     }
+
     public EditMessageText getEditMessageText(
             CallbackQuery callbackQuery,
             String text,
             InlineKeyboardMarkup keyboard
-    ){
+    ) {
         return EditMessageText.builder()
                 .chatId(callbackQuery.getMessage().getChatId())
                 .messageId(callbackQuery.getMessage().getMessageId())
@@ -43,6 +44,7 @@ public class AnswerMethodFactory {
                 .disableWebPagePreview(true)
                 .build();
     }
+
     public EditMessageText getEditeMessageText(Long chatId,
                                                Integer messageId,
                                                String text) {
@@ -61,13 +63,7 @@ public class AnswerMethodFactory {
                 .messageId(messageId)
                 .build();
     }
-    /*
-     копирует сообщение, мы не храним данные(текст, медиа и т.д
-     мы изменяем сообщение, созраняем его индентификатор и используем в дальнейшем
-     .
-     */
 
-    // для редактирования медиа сообщений
     public CopyMessage getCopyMessage(Long chatId, Long fromChatId, Integer messageId, ReplyKeyboard replyKeyboard) {
         return CopyMessage.builder()
                 .fromChatId(fromChatId)
@@ -76,35 +72,38 @@ public class AnswerMethodFactory {
                 .replyMarkup(replyKeyboard)
                 .build();
     }
+
     public EditMessageCaption getEditMessageCaption(Long chatId,
                                                     Integer messageId,
-                                                    String caption){
+                                                    String caption) {
         return EditMessageCaption.builder()
                 .chatId(chatId)
                 .caption(caption)
                 .messageId(messageId)
                 .build();
     }
+
     public EditMessageReplyMarkup getEditMessageReplyMarkup(CallbackQuery callbackQuery,
-                                                            InlineKeyboardMarkup inlineKeyboardMarkup){
-        // изменяет клавиатуру в сообщении
+                                                            InlineKeyboardMarkup inlineKeyboardMarkup) {
         return EditMessageReplyMarkup.builder()
                 .chatId(callbackQuery.getMessage().getChatId())
                 .messageId(callbackQuery.getMessage().getMessageId())
                 .replyMarkup(inlineKeyboardMarkup)
                 .build();
     }
+
     public DeleteMessage getDeleteMessage(
             Long chatId,
             Integer messageId
-    ){
+    ) {
         return DeleteMessage.builder()
                 .chatId(chatId)
                 .messageId(messageId)
                 .build();
     }
+
     public AnswerCallbackQuery getAnswerCallbackQuery(String callbackQueryId,
-                                                      String text){
+                                                      String text) {
         return AnswerCallbackQuery.builder()
                 .callbackQueryId(callbackQueryId)
                 .text(text)
@@ -114,7 +113,7 @@ public class AnswerMethodFactory {
     public SetMyCommands getBotCommandScopeChat(Long chatId,
                                                 Map<String, String> commands) {
         List<BotCommand> botCommands = new ArrayList<>();
-        for (String commandName: commands.keySet()) {
+        for (String commandName : commands.keySet()) {
             botCommands.add(
                     BotCommand.builder()
                             .command(commandName)

@@ -1,7 +1,6 @@
 package com.projectsvadim.vadimbot.enity.timetable;
 
 import com.projectsvadim.vadimbot.enity.User.User;
-import com.projectsvadim.vadimbot.enity.User.UserDetails;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -56,5 +55,4 @@ public class TimeTable {
         }
         users.add(user);
     }
-
 }

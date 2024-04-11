@@ -19,6 +19,7 @@ public class MessageHandler {
     final UserRepo userRepo;
     final TimetableManager timetableManager;
     final TaskManager taskManager;
+
     @Autowired
     public MessageHandler(SearchManager searchManager, UserRepo userRepo, TimetableManager timetableManager, TaskManager taskManager) {
         this.searchManager = searchManager;
@@ -27,11 +28,11 @@ public class MessageHandler {
         this.taskManager = taskManager;
     }
 
-    public BotApiMethod<?> answer(Message message, Bot bot){
+    public BotApiMethod<?> answer(Message message, Bot bot) {
         var user = userRepo.findUserByChatId(message.getChatId());
-        switch (user.getAction()){
+        switch (user.getAction()) {
             case SENDING_TOKEN -> {
-                return searchManager.answerMessage(message,bot);
+                return searchManager.answerMessage(message, bot);
             }
             case SENDING_DESCRIPTION,
                     SENDING_TITTLE -> {

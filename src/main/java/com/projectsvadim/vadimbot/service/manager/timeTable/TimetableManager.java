@@ -3,7 +3,6 @@ package com.projectsvadim.vadimbot.service.manager.timeTable;
 import com.projectsvadim.vadimbot.enity.User.Action;
 import com.projectsvadim.vadimbot.enity.User.Role;
 import com.projectsvadim.vadimbot.enity.User.User;
-import com.projectsvadim.vadimbot.enity.User.UserDetails;
 import com.projectsvadim.vadimbot.enity.timetable.TimeTable;
 import com.projectsvadim.vadimbot.enity.timetable.WeekDay;
 import com.projectsvadim.vadimbot.repository.DetailsRepo;
@@ -13,7 +12,6 @@ import com.projectsvadim.vadimbot.service.factory.AnswerMethodFactory;
 import com.projectsvadim.vadimbot.service.factory.KeyboardFactory;
 import com.projectsvadim.vadimbot.service.manager.AbstractManager;
 import com.projectsvadim.vadimbot.telegram.Bot;
-import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +20,6 @@ import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 import org.telegram.telegrambots.meta.api.objects.Message;
-import org.telegram.telegrambots.meta.api.objects.stickers.Sticker;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 import java.util.ArrayList;
@@ -30,6 +27,7 @@ import java.util.List;
 import java.util.UUID;
 
 import static com.projectsvadim.vadimbot.service.data.CallBackData.*;
+
 @Slf4j
 @Component
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -39,7 +37,6 @@ public class TimetableManager extends AbstractManager {
     final UserRepo userRepo;
     final DetailsRepo detailsRepo;
     final TimeTableRepo timeTableRepo;
-
     @Autowired
     public TimetableManager(AnswerMethodFactory methodFactory,
                             KeyboardFactory keyboardFactory,

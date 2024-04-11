@@ -1,12 +1,9 @@
 package com.projectsvadim.vadimbot.service.data;
 
 public class CallBackData {
-    //Стартовые менюшки
     public static final String FEEDBACK = "feeadback";
     public static final String HELP = "help";
     public static final String START = "start";
-
-    //Расписание
     public static final String TIMETABLE = "timetable";
     public static final String TIMETABLE_1 = "timetable_1";
     public static final String TIMETABLE_2 = "timetable_2";
@@ -39,9 +36,6 @@ public class CallBackData {
     public static final String TIMETABLE_REMOVE_POS= "timetable_remove_pos_";
     public static final String TIMETABLE_REMOVE_FINAL= "timetable_remove_final_";
     public static final String FINAL= "final";
-
-
-    // Задачи
     public static final String POS = "pos";
     public static final String TASK = "task";
     public static final String TASK_CREATE = "task_create";
@@ -69,29 +63,11 @@ public class CallBackData {
     public static final String PROGRESS = "progress";
     public static final String PROGRESS_STAT = "progress_stat";
     public static final String PROGRESS_USER = "progress_user_";
-
-    //Авторизация
     public static final String  AUTH_TEACHER = "auth_teacher";
     public static final String  AUTH_STUDENT = "auth_student";
     public static final String  AUTH = "auth";
-
-    //Олик
-    public static final String  OLIK = "olik";
-    public static final String  OLIK_DRAW = "olik_draw";
-    public static final String  OLIK_SORRY = "olik_sorry";
-    public static final String  OLIK_MESORRY = "olik_me_sorry";
-
-    //Поиск
     public static final String  SEARCH_CANCEL = "search_cancel";
     public static final String  SEARCH = "search";
-
-    //Профиль
     public static final String  PROFILE = "profile";
-    public static final String  PROFILE_REFRESH_TOKEN = "profile_refresh_token";
-
-
-
-
-
-
+    public static final String PROFILE_REFRESH_TOKEN = "profile_refresh_token";
 }

@@ -1,6 +1,5 @@
 package com.projectsvadim.vadimbot.service;
 
-import com.projectsvadim.vadimbot.enity.User.User;
 import com.projectsvadim.vadimbot.repository.UserRepo;
 import com.projectsvadim.vadimbot.service.handler.CallBackQueryHandler;
 import com.projectsvadim.vadimbot.service.handler.CommandHandler;
@@ -16,14 +15,15 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
 @Service
-@FieldDefaults(level =  AccessLevel.PRIVATE)
-@Slf4j // логирование необработанных обновлений
+@FieldDefaults(level = AccessLevel.PRIVATE)
+@Slf4j
 public class UpdateDispatcher {
     final MessageHandler messageHandler;
 
     final CommandHandler commandHandler;
 
     final CallBackQueryHandler callBackQueryHandler;
+
     @Autowired
     public UpdateDispatcher(MessageHandler messageHandler,
                             CommandHandler commandHandler, UserRepo userRepo,
@@ -33,21 +33,14 @@ public class UpdateDispatcher {
         this.callBackQueryHandler = callBackQueryHandler;
     }
 
-    public BotApiMethod<?> distribute(Update update, Bot bot){
-    /* событие описывающее некоторый оносложный запрос,
-    дату, информацию в текстовом формате
-         */
-        if (update.hasCallbackQuery()){
+    public BotApiMethod<?> distribute(Update update, Bot bot) {
+        if (update.hasCallbackQuery()) {
             return callBackQueryHandler.answer(update.getCallbackQuery(), bot);
         }
-        /* message - объект
-        содержащий информацию о новом сообщении
-        в чате
-         */
-        if (update.hasMessage()){
+        if (update.hasMessage()) {
             Message message = update.getMessage();
-            if (message.hasText()){
-                if (message.getText().charAt(0) == '/'){
+            if (message.hasText()) {
+                if (message.getText().charAt(0) == '/') {
                     return commandHandler.answer(message, bot);
                 }
             }
